@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "../../global/theme";
 
-import {RFValue} from 'react-native-responsive-fontsize'
+import {RFValue, RFPercentage} from 'react-native-responsive-fontsize'
 
 
 export const Container = styled.SafeAreaView`
@@ -16,8 +16,12 @@ export const Logo= styled.Image`
     height: ${RFValue(170)}px;
 `;
 
-export const BtnAcesso = style.TouchableOpacity`
-    
+export const AreaBtn = styled.View` 
+    flex: 1;
+    margin-top: ${RFPercentage(50)}px;
+    justify-content: center;
+    align-items: center;
+    width: ${RFPercentage(50)}px;
+    height: ${RFValue(60)}px;
+`;
 
-
-`; 
