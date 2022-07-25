@@ -18,7 +18,7 @@ export default function Rotas() {
               name="Login" component={Login} options={{ headerShown: false}} />
 
               <window.Screen 
-              name="Home" component={Home}/>
+              name="Home" options={{headerShown: false}} component={Home}/>
                
             </window.Navigator>
         </NavigationContainer>

@@ -1,6 +1,5 @@
 import React from "react";
 
-
 // ++Components++
 import Btn from "../../components/Btn/Btn";
 
@@ -14,12 +13,13 @@ import { Container,
          AreaBtn
 } from './style';
 
-export default function Login (){
+export default function Login ({navigation}){
       return (
         <Container>
           <Logo source={f1}  />
           <AreaBtn>
                <Btn
+                 onPress={()=> navigation.navigate("Home")}
                  title= "Acessar"
                /> 
           </AreaBtn> 
