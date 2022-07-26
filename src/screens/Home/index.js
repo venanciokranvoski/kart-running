@@ -19,11 +19,10 @@ export default function Home(){
                <Logo source={img} />     
             </Header>
 
-            <Btn_Plus />
+            <Btn_Plus 
+                title="+"
+            />
 
-
-
-            
         </Container>
     )
 }
