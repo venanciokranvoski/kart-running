@@ -1,11 +1,14 @@
 import React from "react"
-import { Container } from "./style";
+import { TouchableOpacity,
+         Text } from "react-native";
 
+    import styled from "./style";
 
-export function List(){
+export function List({item}){
+
     return (
-        <Container>
-            <Text>teste</Text>
-        </Container>
+        <TouchableOpacity style={styled.btnClik}>
+            <Text>{}</Text>
+        </TouchableOpacity>
     )
 }

@@ -7,30 +7,39 @@ import { ScrollView,
          SafeAreaView,
          TouchableOpacity,
          TextInput,
+         Alert
          } from "react-native"
 
          import { TextInputMask } from "react-native-masked-text"
          import { Picker } from "@react-native-picker/picker"
 
+         import { SalvaCorrida } from '../../../services/Corrida'
+
 
 import styled  from './style';
 
-
-
-    export default function Btn_Plus({title}){
+    export default function Btn_Plus({title, viewCorrida}){
     
     const [modalVisible, setModalVisible] = useState(false);
-    const [categoria, setCategoria] = useState("");
-    const [voltas, setVoltas] = useState("");
+    const [piloto, setPiloto] = useState("F.MASSA") ;
+    const [voltas, setVoltas] = useState("1");
     const [time, setTime] = useState(""); 
-    const [hor, setHor] = useState("");
-    const [vel, setVel] = useState("");
+    const [hora, setHora] = useState("");
+    const [velocidade, setVelocidade] = useState("");
 
-    function teste(){
-        
+    async function salvar(){
+        const corrida = {
+          hora: hora,
+          piloto: piloto,
+          voltas: voltas,
+          time: time,
+          velocidade: velocidade,
+        }
+        await SalvaCorrida(corrida)
+        console.log(corrida);
+        viewCorrida();
+        setModalVisible(false)
     }
-
-  
     return (
         <> 
         <Modal
@@ -49,21 +58,21 @@ import styled  from './style';
                  keyboardType='numeric'
                  type='custom'
                  style={styled.textinput}
-                 placeholder="99:AA:08.277"
+                 placeholder="99:66:08.277"
                  options={{
                     mask: 'SS:SS:SS.SSS'
                  }}
-                 value={time}
+                 value={hora}
                  onChangeText={text => {
-                    setTime(text)
+                    setHora(text)
                  }}
                 />
                 
                 <View style={styled.modalPicker}>
                   <Text style={styled.txtEspace}>Escolha o Piloto</Text>
                   <Picker
-                  selectedValue={categoria}
-                  onValueChange={item => setCategoria(item)}>
+                  selectedValue={piloto}
+                  onValueChange={item => setPiloto(item)}>
                     <Picker.Item 
                       label="F.MASSA"
                       value="F.MASSA"
@@ -120,8 +129,8 @@ import styled  from './style';
                  options={{
                     mask: '99:99.999'
                  }}
-                 value={hor}
-                 onChangeText={item=> setHor(item)}
+                 value={time}
+                 onChangeText={item=> setTime(item)}
                   
                 />
 
@@ -133,14 +142,14 @@ import styled  from './style';
                   options={{
                     mask: '99,999'
                   }}
-                  value={vel}
-                  onChangeText={item => setVel(item)}
+                  value={velocidade}
+                  onChangeText={item => setVelocidade(item)}
                   keyboardType="numeric"
                 />                
 
                 <View style={styled.areaBtn}>
                     <TouchableOpacity
-                    onPress={teste()}
+                    onPress={()=> {salvar()}}
                     style={styled.btnSalvar}
                     >
                         <Text

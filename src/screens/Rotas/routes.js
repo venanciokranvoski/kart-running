@@ -1,9 +1,6 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { NavigationContainer } from '@react-navigation/native'
 import {createNativeStackNavigator } from "@react-navigation/native-stack"
-
-import { CreateTable} from "../../services/Corrida";
-
 
 // screnns
 import Home from '../Home';
@@ -12,9 +9,7 @@ import Login from '../Login';
 const window = createNativeStackNavigator();
 
 export default function Rotas() {
-    useEffect(()=> {
-      CreateTable()
-    },[])
+   
     return (
         <NavigationContainer>
             <window.Navigator>

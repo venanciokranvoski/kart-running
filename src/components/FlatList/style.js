@@ -1,21 +1,29 @@
-import styled from "styled-components";
-import theme from "../../global/theme";
+import { StyleSheet } from "react-native";
 
-export const Container = styled.TouchableOpacity`
-    border-radius: 8px;
-    background-color: #FFFFFF;
-    padding: 16px;
-    margin-bottom: 8px;
-    border-width: ${theme.colors.secondary};
-    box-shadow: #000;
-`;
+const styles = StyleSheet.create({
+     btnClik:{
+        borderRadius: 8,
+        backgroundColor: '#FFFFFF',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        marginBottom: 8,
+        borderTopWidth: 5,
+        borderColor: "#FF0000",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+    },
+    text:{
+        lineHeight: 50,
+    }
 
-export const Titulo = styled.Text`
-    font-size: 25;
-    font-weight: 700;
-    margin-bottom: 4px;
-`
-export const Texto = styled.Text`
-    line-height: 28;
-` 
+})
+
+export default styles;
+
 
