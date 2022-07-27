@@ -13,7 +13,6 @@ export const Container = styled.View`
 `; 
 
 export const Header = styled.View`
-   
     height: ${RFValue(80)}px;
     align-items: center;
     padding-bottom: 5px;
