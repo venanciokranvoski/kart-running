@@ -10,22 +10,24 @@ import { ScrollView,
          Alert
          } from "react-native"
 
+
          import { TextInputMask } from "react-native-masked-text"
          import { Picker } from "@react-native-picker/picker"
 
-         import { SalvaCorrida } from '../../../services/Corrida'
 
+        import { SalvaCorrida } from '../../../services/Corrida'
+      
 
 import styled  from './style';
 
-    export default function Btn_Plus({title, viewCorrida}){
+    export default function Btn_Plus({viewCorrida}){
     
     const [modalVisible, setModalVisible] = useState(false);
-    const [piloto, setPiloto] = useState("F.MASSA") ;
-    const [voltas, setVoltas] = useState("1");
-    const [time, setTime] = useState(""); 
-    const [hora, setHora] = useState("");
-    const [velocidade, setVelocidade] = useState("");
+    const [piloto, setPiloto] = useState('F.MASSA') ;
+    const [voltas, setVoltas] = useState('');
+    const [time, setTime] = useState(''); 
+    const [hora, setHora] = useState('');
+    const [velocidade, setVelocidade] = useState('');
 
     async function salvar(){
         const corrida = {
@@ -46,7 +48,7 @@ import styled  from './style';
            canimationType="slide"
            transparent={true}
            visible={modalVisible}
-           onRequestClose={()=> setModalVisible(false)}
+           onRequestClose={()=> {setModalVisible(false)}}
         > 
         <SafeAreaView style={styled.Container_Father}>
             <ScrollView  showsVerticalScrollIndicator={false}>
@@ -55,16 +57,14 @@ import styled  from './style';
 
                 <Text style={styled.txtEspace}>Hora</Text>
                 <TextInputMask
+                 value={hora}
+                 onChangeText={newHora => setHora(newHora)}
                  keyboardType='numeric'
                  type='custom'
                  style={styled.textinput}
-                 placeholder="99:66:08.277"
+                 placeholder="99:99:08.277"
                  options={{
-                    mask: 'SS:SS:SS.SSS'
-                 }}
-                 value={hora}
-                 onChangeText={text => {
-                    setHora(text)
+                    mask: '99:99:99.999'
                  }}
                 />
                 
@@ -72,7 +72,7 @@ import styled  from './style';
                   <Text style={styled.txtEspace}>Escolha o Piloto</Text>
                   <Picker
                   selectedValue={piloto}
-                  onValueChange={item => setPiloto(item)}>
+                  onValueChange={newpiloto => setPiloto(newpiloto)}>
                     <Picker.Item 
                       label="F.MASSA"
                       value="F.MASSA"
@@ -91,7 +91,7 @@ import styled  from './style';
                     />
                     <Picker.Item 
                       label="F.ALONSO"
-                      value="M.ALONSO"
+                      value="F.ALONSO"
                     />
                   </Picker>
                 </View>
@@ -122,28 +122,27 @@ import styled  from './style';
 
                 <Text style={styled.txtEspace}>Tempo Volta</Text>
                 <TextInputMask
+                 value={time}
+                 onChangeText={text => setTime(text)}
                  style={styled.textinput}
                  type="custom"
                  placeholder='1:02.852'
                  keyboardType='numeric'
                  options={{
                     mask: '99:99.999'
-                 }}
-                 value={time}
-                 onChangeText={item=> setTime(item)}
-                  
+                 }} 
                 />
 
                 <Text style={styled.txtEspace}>Velocidade média da volta</Text>
                 <TextInputMask
+                  value={velocidade}
+                  onChangeText={newVelocidade => setVelocidade(newVelocidade)}
                   style={styled.textinput}
                   placeholder="44,275" 
                   type='custom'
                   options={{
                     mask: '99,999'
                   }}
-                  value={velocidade}
-                  onChangeText={item => setVelocidade(item)}
                   keyboardType="numeric"
                 />                
 
@@ -185,7 +184,7 @@ import styled  from './style';
                 onPress={()=> 
                 {setModalVisible(true)}}
                 style={styled.btnMais}>
-                <Text style={styled.txtMemo}>{title}</Text>
+                <Text style={styled.txtMemo}>+</Text>
             </TouchableOpacity>
         </>
     )

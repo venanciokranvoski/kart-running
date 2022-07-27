@@ -7,7 +7,7 @@ import { Container,
        } from "./style"
 import  img from  "../../images/f1-logo.jpg"
 
-import { CreateTable, SelectRunnings } from "../../services/Corrida";
+import { CreateTable, SelectRunnings, SalvaCorrida } from "../../services/Corrida";
 
 import Btn_Plus from "../../components/Btn/Circle-Add/Btn_Plus";
 import { List } from "../../components/FlatList/List";
@@ -19,13 +19,15 @@ export default function Home(){
       viewCorrida();
     }, [])
      
-    const [dados, setDados] = useState([]);
+   
 
     async function viewCorrida(){
-        const corrida = await SelectRunnings()
-        setDados(corrida)
-        
+        const retorno = await SelectRunnings()
+        setDados(retorno)
+        console.log('aqui é ', retorno);
     }
+
+    const [dados, setDados] = useState([]);
 
     return(
         <Container>
@@ -36,12 +38,10 @@ export default function Home(){
 
             <FlatList
               data={dados}
-              renderItem = {<List />} 
-              keyExtractor={item => item.id}
+              renderItem={(dado) => <List {...dado} />} 
+              keyExtractor={dado => dado.id}
             />
-            <Btn_Plus 
-                title="+"
-                viewCorrida={viewCorrida}
+            <Btn_Plus viewCorrida={viewCorrida}
             />
 
         </Container>
