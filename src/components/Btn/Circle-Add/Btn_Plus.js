@@ -13,7 +13,7 @@ import { ScrollView,
          import { TextInputMask } from "react-native-masked-text"
          import { Picker } from "@react-native-picker/picker"
 
-         import { SalvaCorrida, UpdateDadosRunning } from '../../../services/Corrida'
+         import { SalvaCorrida, UpdateDadosRunning, RemoveCorrida } from '../../../services/Corrida'
       
 import styled  from './style';
 
@@ -34,13 +34,24 @@ import styled  from './style';
 
     
     const [modalVisible, setModalVisible] = useState(false);
-    const [piloto, setPiloto] = useState('F.MASSA');
+    const [piloto, setPiloto] = useState('Selecione');
     const [voltas, setVoltas] = useState('');
     const [time, setTime] = useState(''); 
     const [hora, setHora] = useState('');
     const [velocidade, setVelocidade] = useState('');
 
     const [corridaSelecionada, setCorridaSelecionada] = useState(false)
+
+    
+     function handleValidation(){
+        if(hora === '' || time === '' || velocidade === '' &&  voltas === ''
+           || piloto === ''){
+             Alert.alert("Preencha os dados do Kard!")   
+             return 
+        }else {
+          salvar()
+        }
+    }
 
 
     function handleCleanInputs(){
@@ -52,6 +63,8 @@ import styled  from './style';
       setVelocidade("");
     }
 
+
+
     function handleInputsGet(){
       setHora(pilotoSelecionado.Hora)
       setPiloto(pilotoSelecionado.Piloto)
@@ -61,15 +74,14 @@ import styled  from './style';
     }
 
     async function salvar(){
-        const corrida = {
-          hora: hora,
-          piloto: piloto,
-          voltas: voltas,
-          time: time,
-          velocidade: velocidade,
-        }
+      const corrida = {
+        hora: hora,
+        piloto: piloto,
+        voltas: voltas,
+        time: time,
+        velocidade: velocidade,
+      }
         await SalvaCorrida(corrida)
-        console.log(corrida);
         viewCorrida();
         setModalVisible(false);
         handleCleanInputs();
@@ -90,10 +102,13 @@ import styled  from './style';
       viewCorrida();
       setModalVisible(false)
     }
-    
 
-
-
+    async function removePiloto(){
+      await RemoveCorrida(pilotoSelecionado);
+      setModalVisible(false);
+      viewCorrida();
+      handleCleanInputs();
+    }
     return (
         <> 
         <Modal
@@ -124,7 +139,13 @@ import styled  from './style';
                   <Text style={styled.txtEspace}>Escolha o Piloto</Text>
                   <Picker
                   selectedValue={piloto}
-                  onValueChange={newpiloto => setPiloto(newpiloto)}>
+                  onValueChange={
+                    piloto => setPiloto(piloto)
+                  }>
+                      <Picker.Item 
+                      label="Selecione"
+                      value="0"
+                    />
                     <Picker.Item 
                       label="F.MASSA"
                       value="F.MASSA"
@@ -201,13 +222,14 @@ import styled  from './style';
                 <View style={styled.areaBtn}>
                     <TouchableOpacity
                       onPress={()=> 
-                        { corridaSelecionada ? update() : salvar()}}
+                        { corridaSelecionada ? update() : handleValidation()}}
                       style={styled.btnSalvar}>
                           <Text style={styled.txtbtn}>Salvar</Text>
                     </TouchableOpacity>
                     { corridaSelecionada 
                         ?
                       <TouchableOpacity
+                        onPress={()=> {removePiloto()}}
                         style={styled.BtnDeletar}>
                           <Text style={styled.txtbtn}>
                               Deletar

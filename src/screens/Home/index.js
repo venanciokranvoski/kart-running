@@ -3,9 +3,13 @@ import { StatusBar, FlatList } from "react-native";
 
 import { Container,
          Header,
-         Logo
+         Logo,
+         AreaPiloto,
+         Photo
        } from "./style"
-import  img from  "../../images/f1-logo.jpg"
+       import theme from "../../global/theme";
+
+
 
 import { CreateTable, SelectRunnings, SalvaCorrida } from "../../services/Corrida";
 
@@ -33,8 +37,16 @@ export default function Home(){
         <Container>
             <StatusBar backgroundColor= "#FF0000"/>
             <Header>
-               <Logo source={img} />     
+               <Logo source={theme.logo.logo} />     
             </Header>
+
+            <AreaPiloto>
+                <Photo source={theme.image.massa} />
+                <Photo source={theme.image.barri} />
+                <Photo source={theme.image.kimi}  />
+                <Photo source={theme.image.webb}  />
+                <Photo source={theme.image.alonso}/>
+            </AreaPiloto>
 
             <FlatList
               data={dados}

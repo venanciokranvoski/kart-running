@@ -1,20 +1,25 @@
 import React from "react"
 import { TouchableOpacity,
-         Text, StyleSheet } from "react-native";
+         Text, StyleSheet, Image } from "react-native";
+
+
+
+import { RFValue } from "react-native-responsive-fontsize";
+
 
 export function List({item, setPilotoSelecionado}){
-    const piloto = { "F.MASSA": "#FF924F",
+    const piloto = {  "F.MASSA": "#FF924F",
     "R.BARRICHELLO": "#00911F",
     "M.WEBBER": "#2F71EB", "K.RAIKKONEN": "#FF0000",
     "F.ALONSO": "#12FFFFFF"}
-  
+
     const estilos = styleFunction(piloto[item.Piloto]) 
 
     return (
         <TouchableOpacity style={estilos.btnClik}  onPress={()=> {
           setPilotoSelecionado(item)}}>
             <Text style={estilos.piloto}>Piloto: {item.Piloto}</Text>
-            <Text>Hora: {item.Hora}</Text>
+            <Text style={estilos.userview}>Hora: {item.Hora}</Text>
             <Text style={estilos.voltas}>Qª Volta {item.voltas}</Text>
             <Text style={estilos.userview}> Tempo da Volta: {item.tempoVolta}</Text>
             <Text style={estilos.userview}> Velocidade Média da Volta: {item.mediavelocidade}</Text>
@@ -51,11 +56,11 @@ const styleFunction = (cor) => StyleSheet.create({
     padding: 4,
     color: "#000",
     alignSelf: "flex-start",
+    fontSize: 17,
   },
   userview:{
     fontSize: 17,
-  }
-
+  },
 })
 
 

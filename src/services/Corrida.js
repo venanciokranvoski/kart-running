@@ -38,3 +38,13 @@ export async function UpdateDadosRunning(corrida){
        })
     })
 }
+
+export async function RemoveCorrida(corrida){
+    return new Promise((resolve) => {
+       db.transaction((transaction)=>{
+        transaction.executeSql("DELETE FROM Corrida WHERE id = ?;", [corrida.id], () => {
+           resolve("Corrida removida com Sucesso")
+        })
+       })
+    })
+  }
