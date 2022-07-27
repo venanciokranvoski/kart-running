@@ -24,10 +24,10 @@ export default function Home(){
     async function viewCorrida(){
         const retorno = await SelectRunnings()
         setDados(retorno)
-        console.log('aqui é ', retorno);
     }
 
     const [dados, setDados] = useState([]);
+    const [pilotoSelecionado, setPilotoSelecionado] = useState({});
 
     return(
         <Container>
@@ -38,10 +38,11 @@ export default function Home(){
 
             <FlatList
               data={dados}
-              renderItem={(dado) => <List {...dado} />} 
+              renderItem={(dado) => <List {...dado} setPilotoSelecionado={setPilotoSelecionado}/>} 
               keyExtractor={dado => dado.id}
             />
             <Btn_Plus viewCorrida={viewCorrida}
+            pilotoSelecionado={pilotoSelecionado} setPilotoSelecionado={setPilotoSelecionado}
             />
 
         </Container>

@@ -2,21 +2,22 @@ import React from "react"
 import { TouchableOpacity,
          Text, StyleSheet } from "react-native";
 
-export function List({item}){
+export function List({item, setPilotoSelecionado}){
     const piloto = { "F.MASSA": "#FF924F",
     "R.BARRICHELLO": "#00911F",
-    "M.WEBBER": "#2F71EB", "K.RAIKKONEN": "#FFF5",
+    "M.WEBBER": "#2F71EB", "K.RAIKKONEN": "#FF0000",
     "F.ALONSO": "#12FFFFFF"}
   
     const estilos = styleFunction(piloto[item.Piloto]) 
 
     return (
-        <TouchableOpacity style={estilos.btnClik}>
+        <TouchableOpacity style={estilos.btnClik}  onPress={()=> {
+          setPilotoSelecionado(item)}}>
             <Text style={estilos.piloto}>Piloto: {item.Piloto}</Text>
             <Text>Hora: {item.Hora}</Text>
-            <Text style={estilos.voltas}>Nª Volta {item.voltas}</Text>
-            <Text> Tempo Volta: {item.tempoVolta}</Text>
-            <Text> Velocidade Media da Volta: {item.mediavelocidade}</Text>
+            <Text style={estilos.voltas}>Qª Volta {item.voltas}</Text>
+            <Text style={estilos.userview}> Tempo da Volta: {item.tempoVolta}</Text>
+            <Text style={estilos.userview}> Velocidade Média da Volta: {item.mediavelocidade}</Text>
         </TouchableOpacity>
     )
 }
@@ -39,16 +40,20 @@ const styleFunction = (cor) => StyleSheet.create({
        elevation: 4,
    },
    piloto:{
-       fontSize: 18,
+       fontSize: 19,
        fontWeight: "600",
        marginBottom: 4,
    },
    voltas: {
+    fontWeight: "bold",
     borderRadius: 4,
     backgroundColor: cor,
     padding: 4,
     color: "#000",
     alignSelf: "flex-start",
+  },
+  userview:{
+    fontSize: 17,
   }
 
 })

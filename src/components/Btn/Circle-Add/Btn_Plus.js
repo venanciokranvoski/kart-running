@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import { ScrollView,
          View,
@@ -10,24 +10,55 @@ import { ScrollView,
          Alert
          } from "react-native"
 
-
          import { TextInputMask } from "react-native-masked-text"
          import { Picker } from "@react-native-picker/picker"
 
-
-        import { SalvaCorrida } from '../../../services/Corrida'
+         import { SalvaCorrida, UpdateDadosRunning } from '../../../services/Corrida'
       
-
 import styled  from './style';
 
-    export default function Btn_Plus({viewCorrida}){
+    export default function Btn_Plus({viewCorrida, pilotoSelecionado,
+      setPilotoSelecionado}){
+
+      useEffect(()=> {
+        if(pilotoSelecionado.id){
+          handleInputsGet()
+          setCorridaSelecionada(true)
+          setModalVisible(true)
+          return
+        }
+        setCorridaSelecionada(false)
+      }, [pilotoSelecionado])       
+   
+
+
     
     const [modalVisible, setModalVisible] = useState(false);
-    const [piloto, setPiloto] = useState('F.MASSA') ;
+    const [piloto, setPiloto] = useState('F.MASSA');
     const [voltas, setVoltas] = useState('');
     const [time, setTime] = useState(''); 
     const [hora, setHora] = useState('');
     const [velocidade, setVelocidade] = useState('');
+
+    const [corridaSelecionada, setCorridaSelecionada] = useState(false)
+
+
+    function handleCleanInputs(){
+      setHora("");
+      setPiloto("F.MASSA");
+      setPilotoSelecionado({})
+      setTime("");
+      setHora("");
+      setVelocidade("");
+    }
+
+    function handleInputsGet(){
+      setHora(pilotoSelecionado.Hora)
+      setPiloto(pilotoSelecionado.Piloto)
+      setTime(pilotoSelecionado.tempoVolta)
+      setVoltas(pilotoSelecionado.voltas)
+      setVelocidade(pilotoSelecionado.mediavelocidade)
+    }
 
     async function salvar(){
         const corrida = {
@@ -40,8 +71,29 @@ import styled  from './style';
         await SalvaCorrida(corrida)
         console.log(corrida);
         viewCorrida();
-        setModalVisible(false)
+        setModalVisible(false);
+        handleCleanInputs();
     }
+  
+
+    async function update(){
+      const corrida = {
+        hora: hora,
+        piloto: piloto,
+        voltas: voltas,
+        time: time,
+        velocidade: velocidade,
+        id: pilotoSelecionado.id
+      }
+      await UpdateDadosRunning(corrida);
+      handleCleanInputs();
+      viewCorrida();
+      setModalVisible(false)
+    }
+    
+
+
+
     return (
         <> 
         <Modal
@@ -148,24 +200,21 @@ import styled  from './style';
 
                 <View style={styled.areaBtn}>
                     <TouchableOpacity
-                    onPress={()=> {salvar()}}
-                    style={styled.btnSalvar}
-                    >
-                        <Text
-                        style={styled.txtbtn}>
-                            Salvar
-                        </Text>
+                      onPress={()=> 
+                        { corridaSelecionada ? update() : salvar()}}
+                      style={styled.btnSalvar}>
+                          <Text style={styled.txtbtn}>Salvar</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity
-                    style={styled.BtnDeletar}>
-                        <Text 
-                        style={styled.txtbtn}
-                        >
-                            Deletar
-                        </Text>
-                    </TouchableOpacity>
-
+                    { corridaSelecionada 
+                        ?
+                      <TouchableOpacity
+                        style={styled.BtnDeletar}>
+                          <Text style={styled.txtbtn}>
+                              Deletar
+                          </Text>
+                      </TouchableOpacity>
+                        : <></>
+                    }
                     <TouchableOpacity
                     onPress={()=> setModalVisible(false)}
                     style={styled.BtnSair}>

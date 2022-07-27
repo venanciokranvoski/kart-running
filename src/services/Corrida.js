@@ -28,3 +28,13 @@ export async function SelectRunnings(){
         })     
     })      
 }
+
+export async function UpdateDadosRunning(corrida){
+    return new Promise((resolve) => {
+       db.transaction((transaction)=>{
+        transaction.executeSql("UPDATE Corrida SET Hora = ?, Piloto = ?, voltas = ?, tempoVolta = ?, mediavelocidade = ?  WHERE id = ?;", [corrida.hora, corrida.piloto, corrida.voltas, corrida.time, corrida.velocidade, corrida.id], () => {
+           resolve("Corrida Atualizada com Sucesso")
+        })
+       })
+    })
+}
