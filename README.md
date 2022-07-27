@@ -2,9 +2,10 @@
 
 ## Indice
 
--   [Visão Geral](#Visão-Geral)
+  - [Visão Geral](#Visão-Geral)
   - [Tecnologias](#Tecnologias)
-  - [Metodologias](#Metodologias)
+  - [Funcionalidades](#Funcionalidades)
+  - [RodarnasuaMaquina](RodarnasuaMaquina)
 
 - [Autor](#Autor)
 
