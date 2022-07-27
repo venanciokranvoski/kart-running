@@ -5,7 +5,7 @@
   - [Visão Geral](#Visão-Geral)
   - [Tecnologias](#Tecnologias)
   - [Funcionalidades](#Funcionalidades)
-  - [Rodar na sua Maquina](Rodar-na-sua-Maquina)
+  - [Rodar na sua Maquina](rodar-na-sua-Maquina)
 
 - [Autor](#Autor)
 
