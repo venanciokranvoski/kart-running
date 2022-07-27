@@ -44,7 +44,7 @@ import styled  from './style';
 
     
      function handleValidation(){
-        if(hora === '' || time === '' || velocidade === '' &&  voltas === ''
+        if(hora === '' || time === '' || velocidade === '' ||  voltas === ''
            || piloto === ''){
              Alert.alert("Preencha os dados do Kard!")   
              return 
@@ -145,6 +145,7 @@ import styled  from './style';
                       <Picker.Item 
                       label="Selecione"
                       value="0"
+                      style={{color: "#00000090"}}
                     />
                     <Picker.Item 
                       label="F.MASSA"
